@@ -1,8 +1,13 @@
 from fastapi import FastAPI
+from pydantic import BaseModel
 
 app = FastAPI(title="ai-triage-service")
 
 
+class HealthResponse(BaseModel):
+    status: str
+
+
 @app.get("/health")
-def health() -> dict[str, str]:
-    return {"status": "ok"}
+def health() -> HealthResponse:
+    return HealthResponse(status="ok")
